@@ -93,3 +93,7 @@
     -o-transition: 0.3s ease all;
     transition: 0.3s ease all;
 }
+
+td:nth-child(3):after {
+    content: ' m';
+}

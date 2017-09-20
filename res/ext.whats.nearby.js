@@ -219,10 +219,18 @@
 			self.parameters.maps
 		);
 
-		// MW's table sorter
-		if ( self.container.find( '#output table' ).text() !== '' ) {
+		if ( self.container.find( '#output table > tbody' ).children().length ) {
+			// Reformat distances
+			self.container.find( '#output > table > tbody > tr > td:nth-child(3)' ).each( function() {
+				var distance = parseInt($(this).text().match(/^[0-9,.]*/)[0].replace('.','').replace(',','.'));
+				$(this).text(distance.toFixed(0));
+			} );
+
+			// MW's table sorter
 			mw.loader.using( 'jquery.tablesorter' ).done( function () {
-				self.container.find( '#output table' ).tablesorter();
+				self.container.find( '#output table' ).tablesorter({
+					sortList: [ { 2: 'asc' } ]
+				});
 			} );
 		}
 
